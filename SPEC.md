@@ -70,9 +70,12 @@ is a one-line `.env` edit, never a code change.
 pelican[markdown]==4.11.0
 Jinja2==3.1.5
 Markdown==3.7
-ghp-import==2.1.4
+ghp-import==2.1.0
 python-dotenv==1.0.1
 ```
+
+> **2026-09-14:** `ghp-import` was originally pinned to `2.1.4`, which does not exist on
+> PyPI (the latest release is `2.1.0`) — `pip install` failed. Pinned down to `2.1.0`.
 
 `python-dotenv` lets `pelicanconf.py` load `.env` locally the same way GitHub Actions loads
 secrets in CI — one code path for both environments.
