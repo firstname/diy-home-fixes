@@ -26,17 +26,17 @@ doesn't duplicate file contents, only sequencing and verification.
       `__pycache__/`, `*.pyc`).
       **DoD:** each of those four patterns present; `git check-ignore .venv .env output` all
       return success once those paths exist.
-- [ ] **T0.3** `git init` (if not already a repo) and make an initial commit of the skeleton
+- [x] **T0.3** `git init` (if not already a repo) and make an initial commit of the skeleton
       + docs (`CLAUDE.md`, `SPEC.md`, `README.md`, `TASKS.md`, `.gitignore`).
       **DoD:** `git log` shows one commit; `git status` is clean.
 
 ## Phase 1 — Environment
 
-- [ ] **T1.1** Write `requirements.txt` from `SPEC.md` §3.
+- [x] **T1.1** Write `requirements.txt` from `SPEC.md` §3.
       **DoD:** file matches spec exactly (versions pinned).
-- [ ] **T1.2** Write `scripts/bootstrap.sh` from `SPEC.md` §4; `chmod +x` it.
+- [x] **T1.2** Write `scripts/bootstrap.sh` from `SPEC.md` §4; `chmod +x` it.
       **DoD:** script is executable and idempotent (safe to run twice).
-- [ ] **T1.3** Run `bash scripts/bootstrap.sh`.
+- [x] **T1.3** Run `bash scripts/bootstrap.sh`.
       **DoD:** `.venv/` exists; `pip list` inside the venv shows all packages from
       `requirements.txt`; `themes/flex/` is populated as a submodule; `.env` was created from
       `.env.example`.
