@@ -50,12 +50,12 @@ doesn't duplicate file contents, only sequencing and verification.
       inside the venv) prints the expected value.
 - [x] **T2.2** Write `.env.example` from `SPEC.md` §5.2.
       **DoD:** file committed; contains only placeholder values, no real IDs.
-- [ ] **T2.3** Confirm `.env` (git-ignored, created in T1.3) has been filled in by the human
+- [x] **T2.3** Confirm `.env` (git-ignored, created in T1.3) has been filled in by the human
       with real values, or flag to the user that it still contains placeholders.
       **DoD:** do NOT print `.env` contents to verify — check
       `os.environ.get("GOOGLE_ADSENSE_CLIENT_ID")` is truthy after `load_dotenv()`, without
       printing the value itself.
-- [ ] **T2.4** Write `pelicanconf.py` from `SPEC.md` §5.3.
+- [x] **T2.4** Write `pelicanconf.py` from `SPEC.md` §5.3.
       **DoD:** no literal AUTHOR/SITENAME/URL/ID values appear in this file — only imports
       and `os.environ` lookups.
 - [ ] **T2.5** Write `publishconf.py` from `SPEC.md` §5.4.
