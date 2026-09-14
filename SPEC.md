@@ -350,7 +350,15 @@ if __name__ == "__main__":
 Configure once in **Settings → Secrets and variables → Actions** on the repo:
 
 - Repository **Secrets**: `GOOGLE_ADSENSE_CLIENT_ID`, `GOOGLE_ANALYTICS_ID`
-- Repository **Variables**: `GITHUB_USERNAME`, `GITHUB_REPO`, `SITE_DOMAIN` (optional)
+- Repository **Variables**: `SITE_USERNAME`, `SITE_REPO`, `SITE_DOMAIN` (optional)
+
+> **2026-09-14:** the variables were originally specified as `GITHUB_USERNAME` /
+> `GITHUB_REPO`. GitHub **rejects** repository variables *and* secrets whose name starts
+> with `GITHUB_` (case-insensitive), so those two could never be created —
+> `actionlint` fails the workflow with `configuration variable name "github_username" must
+> not start with the GITHUB_ prefix`. They are now `SITE_USERNAME` / `SITE_REPO`, and the
+> workflow maps them onto the `GITHUB_USERNAME` / `GITHUB_REPO` **env** names that
+> `publishconf.py` reads, so the local `.env` contract is unchanged.
 
 ```yaml
 name: Deploy Pelican Site to GitHub Pages
@@ -368,8 +376,10 @@ jobs:
     env:
       GOOGLE_ADSENSE_CLIENT_ID: ${{ secrets.GOOGLE_ADSENSE_CLIENT_ID }}
       GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
-      GITHUB_USERNAME: ${{ vars.GITHUB_USERNAME }}
-      GITHUB_REPO: ${{ vars.GITHUB_REPO }}
+      # GitHub forbids repository variables/secrets whose name starts with GITHUB_, so the
+      # variables are named SITE_* and mapped onto the env names publishconf.py expects.
+      GITHUB_USERNAME: ${{ vars.SITE_USERNAME }}
+      GITHUB_REPO: ${{ vars.SITE_REPO }}
       SITE_DOMAIN: ${{ vars.SITE_DOMAIN }}
     steps:
       - name: Checkout Source Code
