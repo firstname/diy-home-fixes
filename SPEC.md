@@ -162,13 +162,24 @@ LOCAL_SITEURL=http://localhost:8000
 
 ```python
 import os
+import sys
 from dotenv import load_dotenv
-from config.site_vars import *  # noqa: F401,F403  (AUTHOR, SITENAME, TIMEZONE, ...)
+
+# The `pelican` console script does not put the project root on sys.path, so `config` would
+# not be importable. `python -m pelican` (used in CI) does, but make both work.
+sys.path.append(os.curdir)
+
+from config.site_vars import *  # noqa: E402,F401,F403  (AUTHOR, SITENAME, TIMEZONE, ...)
 
 load_dotenv()  # loads .env in local/dev; in CI, real env vars are already set by Actions
 
 SITEURL = os.environ.get("LOCAL_SITEURL", "http://localhost:8000")
 PATH = "content"
+
+# Default ARTICLE_PATHS is [''], which scans all of content/ and tries to parse
+# content/templates/*.html as articles. Restrict it to the posts directory.
+ARTICLE_PATHS = ["posts"]
+PAGE_PATHS = ["pages"]
 
 THEME = "themes/flex"
 THEME_TEMPLATES_OVERRIDES = ["content/templates"]
@@ -189,9 +200,16 @@ AUTHOR_FEED_RSS = None
 GOOGLE_ADSENSE = {
     "ca_id": os.environ.get("GOOGLE_ADSENSE_CLIENT_ID", ""),
     "page_level_ads": True,
+    # The flex theme reads GOOGLE_ADSENSE.ads.<slot> for every ad position; without this
+    # key Jinja raises UndefinedError. Empty dict = no ad units until slots are configured.
+    "ads": {},
 }
 GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS_ID", "")
 ```
+
+> **2026-09-14:** the `ads` key was added because the pinned `flex` theme (v2.4.0-82) reads
+> `GOOGLE_ADSENSE.ads.<slot>` in `article.html`, `index.html` and `sidebar.html`; without it
+> the build dies with `UndefinedError: 'dict object' has no attribute 'ads'`.
 
 ### 5.4 `publishconf.py` (production overrides only)
 
@@ -230,14 +248,14 @@ Standalone stylesheet so theme upgrades never clobber it:
 
 ```css
 @media (min-width: 768px) {
-    .main-content .articles-list {
+    .articles-list {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 24px;
         padding: 20px 0;
     }
 
-    .main-content .articles-list article {
+    .articles-list article {
         border: 1px solid #eee;
         border-radius: 8px;
         padding: 16px;
@@ -247,7 +265,7 @@ Standalone stylesheet so theme upgrades never clobber it:
         background: #fff;
     }
 
-    .main-content .articles-list article img {
+    .articles-list article img {
         width: 100%;
         height: 200px;
         object-fit: cover;
@@ -256,6 +274,16 @@ Standalone stylesheet so theme upgrades never clobber it:
     }
 }
 ```
+
+> **2026-09-14:** the selectors were originally `.main-content .articles-list`. The pinned
+> `flex` theme emits `<main>` with **no** `main-content` class, so that prefix matched
+> nothing and the grid never applied. Dropped to `.articles-list`.
+>
+> The `.articles-list` wrapper itself does not exist upstream either — the theme's
+> `index.html` emits bare `<article>` siblings. It is added by the template override in
+> `content/templates/index.html`, which also renders the cover image from the `Cover:`
+> front-matter field (`article.cover`); upstream reads `article.featured_image`, which
+> Pelican 4.11 does not provide, so its image branch never rendered.
 
 ---
 

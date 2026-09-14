@@ -64,31 +64,31 @@ doesn't duplicate file contents, only sequencing and verification.
 
 ## Phase 3 — Theme & Styling
 
-- [ ] **T3.1** Confirm `themes/flex` submodule is present and pinned to a commit (from
+- [x] **T3.1** Confirm `themes/flex` submodule is present and pinned to a commit (from
       T1.3); commit the submodule reference (`.gitmodules` + gitlink) if not already
       committed.
       **DoD:** `git submodule status` shows a clean, non-dash-prefixed entry for `themes/flex`.
-- [ ] **T3.2** Write `content/extra/custom.css` from `SPEC.md` §6.
+- [x] **T3.2** Write `content/extra/custom.css` from `SPEC.md` §6.
       **DoD:** file matches spec; not placed inside `themes/flex/` itself.
-- [ ] **T3.3** Verify `STATIC_PATHS` / `EXTRA_PATH_METADATA` in `pelicanconf.py` (T2.4)
+- [x] **T3.3** Verify `STATIC_PATHS` / `EXTRA_PATH_METADATA` in `pelicanconf.py` (T2.4)
       correctly map this CSS file into the build (see `SPEC.md` §5.3).
       **DoD:** after a local build (Phase 5), `output/static/custom.css` exists and its
       content matches `content/extra/custom.css`.
 
 ## Phase 4 — Content Tooling & First Post
 
-- [ ] **T4.1** Write `scripts/new_post.py` from `SPEC.md` §7; `chmod +x` it.
+- [x] **T4.1** Write `scripts/new_post.py` from `SPEC.md` §7; `chmod +x` it.
       **DoD:** idempotency check — running it twice with the same title refuses to
       overwrite the second time (per its own logic).
-- [ ] **T4.2** Write `scripts/serve.sh` (local preview launcher, wraps
+- [x] **T4.2** Write `scripts/serve.sh` (local preview launcher, wraps
       `pelican -l -r content -s pelicanconf.py`, run through the venv).
       **DoD:** running it starts a local server reachable at `http://localhost:8000`.
-- [ ] **T4.3** Generate one real sample post with `scripts/new_post.py` (e.g. the
+- [x] **T4.3** Generate one real sample post with `scripts/new_post.py` (e.g. the
       "door won't close" example) to prove the pipeline end-to-end. Add a real or
       placeholder cover image to `content/images/`.
       **DoD:** post file exists with correct front matter; referenced image file exists at
       the path the post points to.
-- [ ] **T4.4** Set the sample post's `Status: published`.
+- [x] **T4.4** Set the sample post's `Status: published`.
       **DoD:** ready for Phase 5 build to pick it up.
 
 ## Phase 5 — Local Build Verification
@@ -96,14 +96,14 @@ doesn't duplicate file contents, only sequencing and verification.
 *(Do not proceed to Phase 6 until every DoD below passes — this is the checkpoint that
 catches config/content bugs before they cost a CI cycle.)*
 
-- [ ] **T5.1** Run a local dev build: `pelican content -s pelicanconf.py` (via the venv).
+- [x] **T5.1** Run a local dev build: `pelican content -s pelicanconf.py` (via the venv).
       **DoD:** build exits 0, no warnings about missing files.
-- [ ] **T5.2** Visually check `output/index.html` (or via `serve.sh`): homepage renders as a
+- [x] **T5.2** Visually check `output/index.html` (or via `serve.sh`): homepage renders as a
       responsive image grid (Phase 3), the sample post's cover image shows, and the post
       page itself renders with any embedded image/video correctly (see `README.md` §3–4 for
       what "correct" means).
       **DoD:** grid CSS is applied at ≥768px width; images/video load without broken links.
-- [ ] **T5.3** Confirm AdSense/GA snippets are present in the rendered HTML `<head>` (even
+- [x] **T5.3** Confirm AdSense/GA snippets are present in the rendered HTML `<head>` (even
       if the IDs are still placeholders at this stage).
       **DoD:** `grep -r "google" output/*.html` shows the expected script tags.
 
