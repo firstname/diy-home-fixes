@@ -111,7 +111,7 @@ catches config/content bugs before they cost a CI cycle.)*
 
 - [x] **T6.1** Write `.github/workflows/deploy.yml` from `SPEC.md` §8.
       **DoD:** yaml lints cleanly (`actionlint` or GitHub's own workflow validation on push).
-- [ ] **T6.2** Confirm with the user that the following are set as real values in the GitHub
+- [x] **T6.2** Confirm with the user that the following are set as real values in the GitHub
       repo (Settings → Secrets and variables → Actions) — the agent does not set these
       itself since they're entered through the GitHub UI/CLI by the repo owner:
       Secrets: `GOOGLE_ADSENSE_CLIENT_ID`, `GOOGLE_ANALYTICS_ID`;
