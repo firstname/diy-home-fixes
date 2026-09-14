@@ -1,0 +1,13 @@
+{# Override of themes/flex/templates/partial/ga.html — see SPEC.md §5.3 note.
+   Upstream uses analytics.js (Universal Analytics), which was retired by Google and cannot
+   report to a GA4 property: feeding a `G-...` measurement ID to `ga('create', ...)` simply
+   produces no data. Replaced with the GA4 gtag.js loader. #}
+{% if GOOGLE_ANALYTICS %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS }}"></script>
+<script type="text/javascript">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ GOOGLE_ANALYTICS }}');
+</script>
+{% endif %}

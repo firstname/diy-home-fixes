@@ -210,6 +210,11 @@ GOOGLE_ANALYTICS = os.environ.get("GOOGLE_ANALYTICS_ID", "")
 > **2026-09-14:** the `ads` key was added because the pinned `flex` theme (v2.4.0-82) reads
 > `GOOGLE_ADSENSE.ads.<slot>` in `article.html`, `index.html` and `sidebar.html`; without it
 > the build dies with `UndefinedError: 'dict object' has no attribute 'ads'`.
+>
+> **2026-09-14:** the `flex` theme ships `partial/ga.html` with the **analytics.js**
+> (Universal Analytics) loader, which Google has retired; a GA4 `G-...` measurement ID fed
+> to `ga('create', ...)` reports nothing. `content/templates/partial/ga.html` overrides it
+> with the `gtag.js` loader — a template override, not a theme edit (CLAUDE.md §4.4).
 
 ### 5.4 `publishconf.py` (production overrides only)
 
