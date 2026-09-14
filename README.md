@@ -31,7 +31,7 @@ source .venv/bin/activate
 | `GITHUB_USERNAME` | Your GitHub username — determines the live site URL |
 | `GITHUB_REPO` | Repository name |
 | `SITE_DOMAIN` | Optional custom domain; leave blank for `*.github.io` |
-| `GOOGLE_ADSENSE_CLIENT_ID` | AdSense publisher ID (`ca-pub-...`) |
+| `GOOGLE_ADSENSE_CLIENT_ID` | AdSense publisher ID (`pub-` followed by 16 digits) |
 | `GOOGLE_ANALYTICS_ID` | GA4 measurement ID (`G-...`) |
 | `LOCAL_SITEURL` | Local preview URL, usually `http://localhost:8000` |
 
@@ -102,17 +102,28 @@ Output lands in `output/` (git-ignored).
 
 ## 6. Publish
 
-Commit and push to `main`:
+Commit and push to `main` on the **GitHub** remote:
 
 ```bash
 git add content/posts/your-post.md
 git commit -m "Post: your post title"
-git push origin main
+git push github main
 ```
 
 The GitHub Actions workflow in `.github/workflows/deploy.yml` builds the production
 site with `publishconf.py` and publishes `output/` to the `gh-pages` branch. The site
 goes live at `https://<username>.github.io/<repo>/` (or your custom domain).
+
+CI reads the same values from the GitHub repo's **Settings → Secrets and variables →
+Actions**: secrets `GOOGLE_ADSENSE_CLIENT_ID`, `GOOGLE_ANALYTICS_ID`, and variables
+`SITE_USERNAME`, `SITE_REPO`, `SITE_DOMAIN`. The variables are named `SITE_*` because
+GitHub rejects names starting with `GITHUB_` — the workflow maps them onto the
+`GITHUB_USERNAME` / `GITHUB_REPO` values `publishconf.py` expects, so `.env` keeps its
+original names.
+
+GitHub Pages has to be switched on once per repo: **Settings → Pages → Deploy from a
+branch → `gh-pages` / `/ (root)`**. Until that is done the branch is published but the
+URL returns 404.
 
 Always run a local build before pushing — it catches broken image paths and front-matter
 typos without burning a CI cycle.

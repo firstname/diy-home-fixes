@@ -117,22 +117,22 @@ catches config/content bugs before they cost a CI cycle.)*
       Secrets: `GOOGLE_ADSENSE_CLIENT_ID`, `GOOGLE_ANALYTICS_ID`;
       Variables: `GITHUB_USERNAME`, `GITHUB_REPO`, `SITE_DOMAIN` (optional).
       **DoD:** user confirms these are set; agent does not ask to see the values.
-- [ ] **T6.3** Push `main` and watch the Actions run.
+- [x] **T6.3** Push `main` and watch the Actions run.
       **DoD:** workflow run is green; `gh-pages` branch is updated; live URL
       (`https://<user>.github.io/<repo>/` or custom domain) serves the homepage grid with
       the sample post visible.
-- [ ] **T6.4** Spot-check the live site's `<head>` for the real (non-placeholder) AdSense/GA
+- [x] **T6.4** Spot-check the live site's `<head>` for the real (non-placeholder) AdSense/GA
       IDs.
       **DoD:** IDs present and match what's configured in GitHub Secrets (agent checks
       presence/shape, not by echoing the secret value back).
 
 ## Phase 7 — Documentation Sync
 
-- [ ] **T7.1** Confirm `README.md` instructions (`new_post.py` usage, image/video
+- [x] **T7.1** Confirm `README.md` instructions (`new_post.py` usage, image/video
       insertion, `.env` setup, publish flow) match what was actually built in Phases 1–6.
       **DoD:** a fresh read-through of `README.md` produces the same commands that were just
       run in this file.
-- [ ] **T7.2** If anything in Phases 0–6 deviated from `SPEC.md` (e.g. a different theme
+- [x] **T7.2** If anything in Phases 0–6 deviated from `SPEC.md` (e.g. a different theme
       version, an extra config key), update `SPEC.md` to match reality in the same commit.
       **DoD:** no drift between `SPEC.md` and the actual repo contents.
 
