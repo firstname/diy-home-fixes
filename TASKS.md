@@ -154,7 +154,7 @@ and a few more sample posts so the homepage grid can be judged with real volume.
 - [x] **T8.3** Local build with `pelicanconf.py`.
       **DoD:** build exits 0 with no warnings; all four posts render on the homepage grid
       with cover images; local link check reports zero broken links.
-- [ ] **T8.4** Push `main` to both remotes and watch the Actions run.
+- [x] **T8.4** Push `main` to both remotes and watch the Actions run.
       **DoD:** workflow green; the privacy page and all new post URLs return 200 on the
       live site.
 
