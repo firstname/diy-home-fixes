@@ -18,11 +18,11 @@ doesn't duplicate file contents, only sequencing and verification.
 
 ## Phase 0 — Repo Skeleton
 
-- [ ] **T0.1** Create the directory tree from `SPEC.md` §2 (empty dirs are fine for now:
+- [x] **T0.1** Create the directory tree from `SPEC.md` §2 (empty dirs are fine for now:
       `content/{images,videos,posts,pages,extra}`, `themes/`, `scripts/`, `config/`,
       `.github/workflows/`).
       **DoD:** `find . -maxdepth 2 -type d` matches `SPEC.md` §2.
-- [ ] **T0.2** Create `.gitignore` per `CLAUDE.md` §4.6 (`.venv/`, `.env`, `output/`,
+- [x] **T0.2** Create `.gitignore` per `CLAUDE.md` §4.6 (`.venv/`, `.env`, `output/`,
       `__pycache__/`, `*.pyc`).
       **DoD:** each of those four patterns present; `git check-ignore .venv .env output` all
       return success once those paths exist.
