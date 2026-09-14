@@ -138,6 +138,28 @@ catches config/content bugs before they cost a CI cycle.)*
 
 ---
 
+## Phase 8 — Privacy Page & Additional Posts
+
+*(Appended 2026-09-14 at the author's request: a Privacy Policy page — needed for AdSense —
+and a few more sample posts so the homepage grid can be judged with real volume.)*
+
+- [x] **T8.1** Write `content/pages/privacy-policy.md` (Status: published) covering AdSense /
+      cookie / GA4 disclosure, per `SPEC.md` §2 (`content/pages/`).
+      **DoD:** builds to `output/pages/privacy-policy/index.html`; the page appears in the
+      rendered site navigation (`DISPLAY_PAGES_ON_MENU`); no broken links introduced.
+- [x] **T8.2** Add three more posts with `scripts/new_post.py`, each with a real cover image
+      and at least one in-body image, `Status: published`.
+      **DoD:** each slug is new (script refuses duplicates); front matter complete; every
+      image referenced by `Cover:` or `{static}` exists in `content/images/`.
+- [x] **T8.3** Local build with `pelicanconf.py`.
+      **DoD:** build exits 0 with no warnings; all four posts render on the homepage grid
+      with cover images; local link check reports zero broken links.
+- [ ] **T8.4** Push `main` to both remotes and watch the Actions run.
+      **DoD:** workflow green; the privacy page and all new post URLs return 200 on the
+      live site.
+
+---
+
 ## Adding a new future task (e.g. a second post, a new page type, a design tweak)
 
 Append a new `## Phase N — <name>` section below this line, following the same format
