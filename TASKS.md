@@ -48,7 +48,7 @@ doesn't duplicate file contents, only sequencing and verification.
 - [ ] **T2.1** Write `config/site_vars.py` from `SPEC.md` §5.1.
       **DoD:** `python -c "from config.site_vars import SITENAME; print(SITENAME)"` (run
       inside the venv) prints the expected value.
-- [ ] **T2.2** Write `.env.example` from `SPEC.md` §5.2.
+- [x] **T2.2** Write `.env.example` from `SPEC.md` §5.2.
       **DoD:** file committed; contains only placeholder values, no real IDs.
 - [ ] **T2.3** Confirm `.env` (git-ignored, created in T1.3) has been filled in by the human
       with real values, or flag to the user that it still contains placeholders.
